@@ -1,9 +1,18 @@
-﻿namespace Watoocook.Domain.Models
+﻿using ValueOf;
+
+namespace Watoocook.Domain.Models
 {
-    public enum Tag
+    public class Tag : ValueOf<string, Tag>
     {
-        Light,
-        Pasta,
-        Rapido,
+        public Tag()
+        {
+            Name = string.Empty;
+        }
+
+        public Tag(string name)
+        {
+            Name = name;
+        }
+        public string Name { get; }
     }
 }

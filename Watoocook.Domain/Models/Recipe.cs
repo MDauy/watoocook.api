@@ -1,8 +1,10 @@
-﻿namespace Watoocook.Domain.Models
+﻿using System.Collections.Generic;
+
+namespace Watoocook.Domain.Models
 {
     public class Recipe : BaseModel
     {
-        public Recipe(string name, IEnumerable<Ingredient> ingredients, IEnumerable<string> tags)
+        public Recipe(string name, Dictionary<Ingredient, Quantity> ingredients, IEnumerable<Tag> tags)
         {
             Name = name;
             Ingredients = ingredients;
@@ -10,8 +12,9 @@
         }
 
         public string Name { get; set; } = null!;
-        public IEnumerable<Ingredient> Ingredients { get; set; } = null!;
 
-        public IEnumerable<string> Tags { get; set; }
+        public Dictionary<Ingredient, Quantity> Ingredients{ get; set; }
+
+        public IEnumerable<Tag> Tags { get; set; }
     }
 }

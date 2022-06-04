@@ -8,19 +8,20 @@ namespace Watoocook.Infrastructure.Documents
         public RecipeDocument(string name)
         {
             Name = name;
-            Ingredients = new List<Ingredient>();
-            Tags = new List<string>();
+            Ingredients = new Dictionary<Ingredient, Quantity>();
+            Tags = new List<Tag>();
         }
 
-        public RecipeDocument(string name, IEnumerable<Ingredient> ingredients, IEnumerable<string> tags) : this(name)
+        public RecipeDocument (Recipe recipe)
         {
-            Ingredients = ingredients;
-            Tags = tags;
+            Name=recipe.Name;
+            Ingredients = recipe.Ingredients;
+            Tags = recipe.Tags;
         }
 
-        public string Name { get; set; } = null!;
-        public IEnumerable<Ingredient> Ingredients { get; set; } = null!;
+        public string Name { get; }
+        public Dictionary<Ingredient, Quantity> Ingredients { get; set; }
 
-        public IEnumerable<string> Tags { get; set; } = null!;
+        public IEnumerable<Tag> Tags { get; }
     }
 }

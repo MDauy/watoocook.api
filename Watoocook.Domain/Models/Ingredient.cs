@@ -1,14 +1,18 @@
-﻿namespace Watoocook.Domain.Models
+﻿using ValueOf;
+
+namespace Watoocook.Domain.Models
 {
-    public struct Ingredient
+    public class Ingredient : ValueOf<string, Ingredient>
     {
-        public Ingredient(string name, string quantity)
+        public Ingredient()
         {
-            Name = name;
-            Quantity = quantity;
         }
 
-        public string Name { get; set; } = null!;
-        public string Quantity { get; set; } = null!;
+        public Ingredient(string name)
+        {
+            Name = name;
+        }
+
+        public string Name { get; } = null!;
     }
 }
