@@ -1,7 +1,9 @@
 ﻿namespace Watoocook.Api.Dtos
 {
-    public class BaseDto
+    public abstract class BaseDto
     {
         public string Id { get; set; } = null!;
+
+        public abstract void Validate ();
     }
 }
