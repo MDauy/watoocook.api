@@ -1,9 +1,4 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Watoocook.Domain.UseCases;
 
 namespace Watoocook.Domain
@@ -13,6 +8,7 @@ namespace Watoocook.Domain
         public static void AddUseCases(this IServiceCollection serviceCollection)
         {
             serviceCollection.AddSingleton<GetRecipesByTagsUseCase>();
+            serviceCollection.AddSingleton<InsertRecipeUseCase>();
         }
     }
 }
