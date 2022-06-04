@@ -1,9 +1,16 @@
+using MongoDBWrapper.Configuration;
+using Watoocook.Infrastructure;
+using Watoocook.Domain;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorPages();
-
+builder.Services.AddMongodbWrapperConfiguration();
+builder.Services.AddRepositories();
+builder.Services.AddUseCases();
 var app = builder.Build();
+ServiceActivator.Configure(app.Services);
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
