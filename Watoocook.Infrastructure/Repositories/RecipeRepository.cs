@@ -21,7 +21,13 @@ namespace Watoocook.Infrastructure.Repositories
 
         public async Task InsertRecipe(Recipe recipe)
         {
-            await Insert(new RecipeDocument(recipe.Name, recipe.Ingredients, recipe.Tags));
+            await Insert(new RecipeDocument(recipe));
+        }
+
+        public async Task DeleteRecipe(string recipeId)
+        {
+            if (!await Delete(recipeId))
+                throw new Exception($"Recipe {recipeId} deletion went wrong");
         }
     }
 }

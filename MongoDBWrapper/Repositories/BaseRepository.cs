@@ -34,9 +34,13 @@ namespace MongoDBWrapper.Repositories
             _collectionName = typeof(T).ToString().ToLower();
         }
 
-            public Task<bool> Delete(T document)
+        public async Task<bool> Delete(string documentOid)
         {
-            throw new NotImplementedException();
+            var objectId = new ObjectId(documentOid);
+            var deleteResult = await Collection.DeleteOneAsync((x => x.Oid == objectId));
+            if (deleteResult.DeletedCount > 0)
+                return true;
+            return false;
         }
 
         public async Task<T> Get(string id)

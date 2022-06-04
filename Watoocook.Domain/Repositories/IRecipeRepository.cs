@@ -6,5 +6,6 @@ namespace Watoocook.Domain.Repositories
     {
         Task<IEnumerable<Recipe>> GetRecipesByTagsAsync(IEnumerable<string> tags);
         Task InsertRecipe(Recipe recipe);
+        Task DeleteRecipe(string recipeId);
     }
 }

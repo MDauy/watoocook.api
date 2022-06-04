@@ -27,7 +27,7 @@ namespace MongoDBWrapper.Repositories
         /// </summary>
         /// <param name="document">Document to delete.</param>
         /// <returns>Deletion success.</returns>
-        Task<bool> Delete(T document);
+        Task<bool> Delete(string documentOid);
 
         /// <summary>
         /// Update complete document.
