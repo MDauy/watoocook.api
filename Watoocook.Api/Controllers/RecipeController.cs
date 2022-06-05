@@ -4,31 +4,32 @@ using Watoocook.Api.Exceptions;
 using Watoocook.Domain.Models;
 using Watoocook.Domain.UseCases;
 
-// For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-
 namespace Watoocook.Api.Controllers
 {
-    [Route("api/[controller]")]
     [ApiController]
-    public class RecipeController : ControllerBase
+    [Route("[controller]")]
+    public class RecipeController : Controller
     {
         private GetRecipesByTagsUseCase _getRecipesByTagsUseCase;
         private InsertRecipeUseCase _insertRecipeUseCase;
         private DeleteRecipeUseCase _deleteRecipeUseCase;
-        public RecipeController (GetRecipesByTagsUseCase getRecipesByTags,
+        private GetRecipeByIdUseCase _getRecipeByIdUserCase;
+        public RecipeController(GetRecipesByTagsUseCase getRecipesByTags,
             InsertRecipeUseCase insertRecipeUserCase,
-            DeleteRecipeUseCase deleteRecipeUseCase)
+            DeleteRecipeUseCase deleteRecipeUseCase,
+            GetRecipeByIdUseCase getRecipeByIdUseCase)
         {
             _getRecipesByTagsUseCase = getRecipesByTags;
             _insertRecipeUseCase = insertRecipeUserCase;
             _deleteRecipeUseCase = deleteRecipeUseCase;
+            _getRecipeByIdUserCase = getRecipeByIdUseCase;
         }
         // GET: api/<RecipeController>
         [HttpGet]
         public async Task<IEnumerable<RecipeDto>> GetByTags([FromBody] IEnumerable<string> tags)
         {
             var recipesDto = new List<RecipeDto>();
-            var domainRecipes =  await _getRecipesByTagsUseCase.GetRecipesByTagsAsync(tags);
+            var domainRecipes = await _getRecipesByTagsUseCase.GetRecipesByTagsAsync(tags);
             foreach (var domainRecipe in domainRecipes)
             {
                 recipesDto.Add(new RecipeDto(domainRecipe.Name, domainRecipe.Ingredients, domainRecipe.Tags));
@@ -36,9 +37,17 @@ namespace Watoocook.Api.Controllers
             return recipesDto;
         }
 
-        // PUT api/<RecipeController>/5
-        [HttpPut("{id}")]
-        public async Task <IActionResult> Put([FromBody] RecipeDto recipe)
+        [HttpGet("{id}")]
+        public async Task<RecipeDto> GetById(string recipeId)
+        {
+            var recipe = await _getRecipeByIdUserCase.GetRecipeById(recipeId);
+
+            return new RecipeDto(recipe.Name, recipe.Ingredients, recipe.Tags);
+        }
+
+        // POST api/<RecipeController>/5
+        [HttpPost]
+        public async Task<IActionResult> Put([FromBody] RecipeDto recipe)
         {
             try
             {
