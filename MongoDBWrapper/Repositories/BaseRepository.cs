@@ -43,7 +43,7 @@ namespace MongoDBWrapper.Repositories
             return false;
         }
 
-        public async Task<T> Get(string id)
+        public async Task<T?> Get(string id)
         {
             try
             {

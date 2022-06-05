@@ -9,6 +9,8 @@ namespace Watoocook.Domain
         {
             serviceCollection.AddSingleton<GetRecipesByTagsUseCase>();
             serviceCollection.AddSingleton<InsertRecipeUseCase>();
+            serviceCollection.AddSingleton<DeleteRecipeUseCase>();
+            serviceCollection.AddSingleton<GetRecipeByIdUseCase>();
         }
     }
 }

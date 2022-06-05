@@ -13,7 +13,7 @@ namespace MongoDBWrapper.Repositories
         /// </summary>
         /// <param name="id">ObjectId</param>
         /// <returns>Searched Document.</returns>
-        Task<T> Get(string id);
+        Task<T?> Get(string id);
 
         /// <summary>
         /// Insert complete DAO to targeted collection.

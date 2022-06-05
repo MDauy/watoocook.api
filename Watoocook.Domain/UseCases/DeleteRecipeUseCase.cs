@@ -1,5 +1,4 @@
-﻿using Watoocook.Domain.Models;
-using Watoocook.Domain.Repositories;
+﻿using Watoocook.Domain.Repositories;
 
 namespace Watoocook.Domain.UseCases
 {
