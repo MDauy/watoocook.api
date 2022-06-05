@@ -3,13 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.32112.339
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Watoocook.Api", "Watoocook.Api\Watoocook.Api.csproj", "{EE91140E-4D19-4AF5-8414-888935777B3E}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Watoocook.Infrastructure", "Watoocook.Infrastructure\Watoocook.Infrastructure.csproj", "{0AD4CD81-05D7-4A3A-8130-6F0B25D4FBB8}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MongoDBWrapper", "MongoDBWrapper\MongoDBWrapper.csproj", "{227D176E-6A99-46AF-B59B-6DECF553FE5B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Watoocook.Domain", "Watoocook.Domain\Watoocook.Domain.csproj", "{DC1F5A42-C5AA-4DE4-B586-C5C217D73C13}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Watoocook.Domain", "Watoocook.Domain\Watoocook.Domain.csproj", "{DC1F5A42-C5AA-4DE4-B586-C5C217D73C13}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Watoocook.Api", "Watoocook.Api\Watoocook.Api.csproj", "{3B68EEB2-3DE3-49D8-9750-948A2FDB4DFC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -17,10 +17,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{EE91140E-4D19-4AF5-8414-888935777B3E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{EE91140E-4D19-4AF5-8414-888935777B3E}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{EE91140E-4D19-4AF5-8414-888935777B3E}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{EE91140E-4D19-4AF5-8414-888935777B3E}.Release|Any CPU.Build.0 = Release|Any CPU
 		{0AD4CD81-05D7-4A3A-8130-6F0B25D4FBB8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{0AD4CD81-05D7-4A3A-8130-6F0B25D4FBB8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0AD4CD81-05D7-4A3A-8130-6F0B25D4FBB8}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -33,6 +29,10 @@ Global
 		{DC1F5A42-C5AA-4DE4-B586-C5C217D73C13}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DC1F5A42-C5AA-4DE4-B586-C5C217D73C13}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DC1F5A42-C5AA-4DE4-B586-C5C217D73C13}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3B68EEB2-3DE3-49D8-9750-948A2FDB4DFC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3B68EEB2-3DE3-49D8-9750-948A2FDB4DFC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3B68EEB2-3DE3-49D8-9750-948A2FDB4DFC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3B68EEB2-3DE3-49D8-9750-948A2FDB4DFC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

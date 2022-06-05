@@ -11,6 +11,7 @@
   "profiles": {
     "Watoocook.Api": {
       "commandName": "Project",
+      "commandLineArgs": "--no-cache",
       "launchBrowser": true,
       "launchUrl": "swagger",
       "environmentVariables": {
@@ -32,9 +33,6 @@
       "launchBrowser": true,
       "launchUrl": "{Scheme}://{ServiceHost}:{ServicePort}/swagger",
       "publishAllPorts": true
-    },
-    "Profile 1": {
-      "commandName": "Executable"
     }
   }
 }

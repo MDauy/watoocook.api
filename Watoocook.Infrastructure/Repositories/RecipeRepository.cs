@@ -29,5 +29,15 @@ namespace Watoocook.Infrastructure.Repositories
             if (!await Delete(recipeId))
                 throw new Exception($"Recipe {recipeId} deletion went wrong");
         }
+
+        public async Task<Recipe> GetById(string recipeId)
+        {
+            var recipe = await Get(recipeId);
+            if (recipe != null)
+            {
+                return new Recipe(recipe.Name, recipe.Ingredients, recipe.Tags);
+            }
+            throw new Exception("Recipe not found");
+        }
     }
 }

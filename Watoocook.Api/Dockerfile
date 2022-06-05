@@ -1,19 +1,22 @@
+#See https://aka.ms/containerfastmode to understand how Visual Studio uses this Dockerfile to build your images for faster debugging.
+
 FROM mcr.microsoft.com/dotnet/aspnet:6.0 AS base
 WORKDIR /app
-EXPOSE 5276
-
-ENV ASPNETCORE_URLS=http://+:5276
+EXPOSE 80
 
 FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
 WORKDIR /src
-COPY ["Watoocook.Api.csproj", "./"]
-RUN dotnet restore "Watoocook.Api.csproj"
+COPY ["Watoocook.Api/Watoocook.Api.csproj", "Watoocook.Api/"]
+COPY ["Watoocook.Domain/Watoocook.Domain.csproj", "Watoocook.Domain/"]
+COPY ["Watoocook.Infrastructure/Watoocook.Infrastructure.csproj", "Watoocook.Infrastructure/"]
+COPY ["MongoDBWrapper/MongoDBWrapper.csproj", "MongoDBWrapper/"]
+RUN dotnet restore "Watoocook.Api/Watoocook.Api.csproj"
 COPY . .
-WORKDIR "/src/."
+WORKDIR "/src/Watoocook.Api"
 RUN dotnet build "Watoocook.Api.csproj" -c Release -o /app/build
 
-FROM build AS publish
-RUN dotnet publish "Watoocook.Api.csproj" -c Release -o /app/publish /p:UseAppHost=false
+FROM build AS watch
+RUN dotnet watch "Watoocook.Api.csproj"
 
 FROM base AS final
 WORKDIR /app

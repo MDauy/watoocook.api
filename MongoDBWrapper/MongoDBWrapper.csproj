@@ -16,4 +16,10 @@
     <PackageReference Include="MongoDB.Driver" Version="2.15.1" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="mongodb_apsettings.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>

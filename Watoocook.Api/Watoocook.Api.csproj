@@ -4,7 +4,9 @@
     <TargetFramework>net6.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
-    <DockerDefaultTargetOS>Windows</DockerDefaultTargetOS>
+    <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+	  <DockerfileFile>Dockerfile</DockerfileFile>
+	  <DockerfileBuildArguments>--no-cache --pull</DockerfileBuildArguments>
   </PropertyGroup>
 
   <ItemGroup>
@@ -14,6 +16,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Watoocook.Domain\Watoocook.Domain.csproj" />
+    <ProjectReference Include="..\Watoocook.Infrastructure\Watoocook.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>
