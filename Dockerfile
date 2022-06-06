@@ -15,8 +15,8 @@ COPY . .
 WORKDIR "/src/Watoocook.Api"
 RUN dotnet build "Watoocook.Api.csproj" -c Release -o /app/build
 
-FROM build AS watch
-RUN dotnet watch "Watoocook.Api.csproj"
+FROM build AS publish
+RUN dotnet publish "Watoocook.Api.csproj" -c Release -o /app/publish /p:UseAppHost=false
 
 FROM base AS final
 WORKDIR /app

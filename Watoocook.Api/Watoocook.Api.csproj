@@ -5,7 +5,7 @@
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
-	  <DockerfileFile>Dockerfile</DockerfileFile>
+	  <DockerfileFile>../Dockerfile</DockerfileFile>
 	  <DockerfileBuildArguments>--no-cache --pull</DockerfileBuildArguments>
   </PropertyGroup>
 
