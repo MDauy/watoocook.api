@@ -13,6 +13,8 @@ namespace Watoocook.Domain.UseCases
 
         public async Task DeleteRecipe(string recipeId)
         {
+            if (string.IsNullOrEmpty(recipeId))
+                throw new ArgumentNullException(nameof(recipeId));
             try
             {
                 await _recipeRepository.DeleteRecipe(recipeId);
@@ -21,6 +23,6 @@ namespace Watoocook.Domain.UseCases
             {
                 throw;
             }
-            }
         }
     }
+}

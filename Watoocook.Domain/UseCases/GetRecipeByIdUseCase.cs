@@ -19,10 +19,12 @@ namespace Watoocook.Domain.UseCases
 
         public async Task<Recipe> GetRecipeById(string recipeId)
         {
+            if (string.IsNullOrEmpty(recipeId))
+                throw new ArgumentNullException(nameof(recipeId));
             try
             {
                 var recipe = await _recipeRepository.GetById(recipeId);
-                return new Recipe(recipe.Name, recipe.Ingredients, recipe.Tags);
+                return recipe!;
             }
             catch (Exception)
             {

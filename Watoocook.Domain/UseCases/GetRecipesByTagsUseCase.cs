@@ -12,7 +12,10 @@ namespace Watoocook.Domain.UseCases
         }
         public async Task<IEnumerable<Recipe>> GetRecipesByTagsAsync (IEnumerable<string> tags)
         {
-            return await _recipeRepository.GetRecipesByTagsAsync(tags);
+            if (tags.Any())
+                return await _recipeRepository.GetRecipesByTagsAsync(tags);
+            else
+                throw new ArgumentNullException(nameof(tags));
         }
     }
 }
