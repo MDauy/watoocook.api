@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
@@ -17,6 +17,10 @@
   <ItemGroup>
     <ProjectReference Include="..\Watoocook.Domain\Watoocook.Domain.csproj" />
     <ProjectReference Include="..\Watoocook.Infrastructure\Watoocook.Infrastructure.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="wwwroot\" />
   </ItemGroup>
 
 </Project>
