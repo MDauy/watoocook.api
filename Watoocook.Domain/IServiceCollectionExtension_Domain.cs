@@ -11,6 +11,7 @@ namespace Watoocook.Domain
             serviceCollection.AddSingleton<InsertRecipeUseCase>();
             serviceCollection.AddSingleton<DeleteRecipeUseCase>();
             serviceCollection.AddSingleton<GetRecipeByIdUseCase>();
+            serviceCollection.AddSingleton<InsertBunchOfRecipesUseCase>();
         }
     }
 }

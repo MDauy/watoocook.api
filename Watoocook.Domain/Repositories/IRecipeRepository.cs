@@ -9,5 +9,6 @@ namespace Watoocook.Domain.Repositories
         Task<Recipe> GetById(string recipeId);
         Task InsertRecipe(Recipe recipe);
         Task DeleteRecipe(string recipeId);
+        Task InsertManyRecipes(List<Recipe> recipes);
     }
 }

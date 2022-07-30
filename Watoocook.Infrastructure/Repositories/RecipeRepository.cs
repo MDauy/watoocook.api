@@ -14,7 +14,7 @@ namespace Watoocook.Infrastructure.Repositories
             var recipes = await Get(recipe => recipe.Tags.Select(x => x.ToString()).Intersect(tags).Any());
             foreach (var recipe in recipes)
             {
-                result.Add(new Recipe(recipe.Name, recipe.Ingredients, recipe.Tags));
+                result.Add(new Recipe(recipe.Name, recipe.Ingredients, recipe.Tags, recipe.Oid.ToString()));
             }
             return result;
         }
@@ -35,9 +35,19 @@ namespace Watoocook.Infrastructure.Repositories
             var recipe = await Get(recipeId);
             if (recipe != null)
             {
-                return new Recipe(recipe.Name, recipe.Ingredients, recipe.Tags);
+                return new Recipe(recipe.Name, recipe.Ingredients, recipe.Tags, recipe.Oid.ToString());
             }
             throw new Exception("Recipe not found");
+        }
+
+        public async Task InsertManyRecipes(List<Recipe> recipes)
+        {
+            var recipeDocuments = new List<RecipeDocument>();
+            recipes.ForEach(recipe =>
+            {
+                recipeDocuments.Add(new RecipeDocument(recipe));
+            });
+            await Collection.InsertManyAsync(recipeDocuments);
         }
     }
 }

@@ -14,49 +14,73 @@ namespace Watoocook.Api.Controllers
         private InsertRecipeUseCase _insertRecipeUseCase;
         private DeleteRecipeUseCase _deleteRecipeUseCase;
         private GetRecipeByIdUseCase _getRecipeByIdUserCase;
+        private InsertBunchOfRecipesUseCase _insertBunchOfRecipes;
         public RecipeController(GetRecipesByTagsUseCase getRecipesByTags,
             InsertRecipeUseCase insertRecipeUserCase,
             DeleteRecipeUseCase deleteRecipeUseCase,
-            GetRecipeByIdUseCase getRecipeByIdUseCase)
+            GetRecipeByIdUseCase getRecipeByIdUseCase,
+            InsertBunchOfRecipesUseCase insertBunchOfRecipes)
         {
             _getRecipesByTagsUseCase = getRecipesByTags;
             _insertRecipeUseCase = insertRecipeUserCase;
             _deleteRecipeUseCase = deleteRecipeUseCase;
             _getRecipeByIdUserCase = getRecipeByIdUseCase;
+            _insertBunchOfRecipes = insertBunchOfRecipes;
         }
         // GET: api/<RecipeController>
-        [HttpGet]
-        public async Task<IEnumerable<RecipeDto>> GetByTags([FromBody] IEnumerable<string> tags)
+        [HttpGet("getbytags")]
+        public async Task<IActionResult> GetByTags([FromBody] IEnumerable<string> tags)
         {
-            var recipesDto = new List<RecipeDto>();
-            var domainRecipes = await _getRecipesByTagsUseCase.GetRecipesByTagsAsync(tags);
-            foreach (var domainRecipe in domainRecipes)
+            try
             {
-                recipesDto.Add(new RecipeDto(domainRecipe.Name, domainRecipe.Ingredients, domainRecipe.Tags));
+                var recipesDto = new List<RecipeDto>();
+                var domainRecipes = await _getRecipesByTagsUseCase.GetRecipesByTagsAsync(tags);
+                foreach (var domainRecipe in domainRecipes)
+                {
+                    recipesDto.Add(new RecipeDto(domainRecipe));
+                }
+                return StatusCode(200,recipesDto);
             }
-            return recipesDto;
+            catch (ArgumentNullException ex)
+            {
+                return StatusCode(400, ex.Message);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
         }
 
         [HttpGet("{id}")]
-        public async Task<RecipeDto> GetById(string recipeId)
+        public async Task<IActionResult> GetById(string id)
         {
-            var recipe = await _getRecipeByIdUserCase.GetRecipeById(recipeId);
+            try
+            {
+                var recipe = await _getRecipeByIdUserCase.GetRecipeById(id);
 
-            return new RecipeDto(recipe.Name, recipe.Ingredients, recipe.Tags);
+                return StatusCode(200, new RecipeDto(recipe));
+            }
+            catch (ArgumentNullException ex)
+            {
+                return StatusCode(400, ex.Message);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
         }
 
         // POST api/<RecipeController>/5
         [HttpPost]
-        public async Task<IActionResult> Put([FromBody] RecipeDto recipe)
+        public async Task<IActionResult> Post([FromBody] AddRecipeDto recipe)
         {
             try
             {
-                recipe.Validate();
-                var domainRecipe = new Recipe(recipe.Name, recipe.Ingredients, recipe.Tags);
+                var domainRecipe = new Recipe(recipe.Name, recipe.Ingredients, recipe.Tags.Select(x => x.ToString()));
                 await _insertRecipeUseCase.InsertRecipe(domainRecipe);
                 return Ok(recipe);
             }
-            catch (InvalidObjectException ex)
+            catch (Exception ex)
             {
                 return BadRequest(ex.Message);
             }
@@ -71,11 +95,35 @@ namespace Watoocook.Api.Controllers
                 await _deleteRecipeUseCase.DeleteRecipe(id);
                 return Ok();
             }
-            catch
+            catch (Exception ex)
             {
-                return StatusCode(500);
+                return StatusCode(500, ex.Message);
             }
 
+        }
+
+        [HttpPost("insertmany")]
+        public async Task<IActionResult> InsertManyRecipes(List<RecipeDto> recipes)
+        {
+            try
+            {
+                var recipeModels = new List<Recipe>();
+                foreach (var recipe in recipes)
+                {
+                    recipeModels.Add(new Recipe(recipe.Name, recipe.Ingredients, recipe.Tags));
+                }
+
+                await _insertBunchOfRecipes.InsertManyRecipes(recipeModels);
+                return Ok();
+            }
+            catch (ArgumentException ex)
+            {
+                return StatusCode(400, ex.Message);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
         }
     }
 }
