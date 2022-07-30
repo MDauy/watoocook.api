@@ -7,23 +7,14 @@ namespace MongoDBWrapper.Repositories
 {
     public class BaseRepository<T> : IBaseRepository<T> where T : BaseDocument
     {
-        private IMongoCollection<T> _collection = null!;
+        private IMongoCollection<T> _collection;
         protected IMongoDatabase Db = null!;
-        private readonly string _collectionName = null!;
+        private readonly string _collectionName;
 
         public IMongoCollection<T> Collection
         {
             get
             {
-                if (_collection == null)
-                {
-                    var collections = Db.ListCollectionNames().ToList();
-                    if (!collections.Contains(_collectionName))
-                    {
-                        Db.CreateCollection(_collectionName);
-                    }
-                    _collection = Db.GetCollection<T>(_collectionName);
-                }
                 return _collection;
             }
         }
@@ -31,7 +22,13 @@ namespace MongoDBWrapper.Repositories
         public BaseRepository()
         {
             Db = DataBaseAccess.Db;
-            _collectionName = typeof(T).ToString().ToLower();
+            _collectionName = typeof(T).Name.ToString().ToLower() + "s";
+            var collections = Db.ListCollectionNames().ToList();
+            if (!collections.Contains(_collectionName))
+            {
+                Db.CreateCollection(_collectionName);
+            }
+            _collection = Db.GetCollection<T>(_collectionName);
         }
 
         public async Task<bool> Delete(string documentOid)
@@ -48,7 +45,7 @@ namespace MongoDBWrapper.Repositories
             try
             {
                 var objectId = new ObjectId(id);
-                var document = await Collection.FindAsync(d => d.Oid == objectId);
+                var document = await this.Collection.FindAsync(d => d.Oid == objectId);
                 return document.FirstOrDefault();
             }
             catch (Exception e)
