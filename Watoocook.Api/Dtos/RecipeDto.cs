@@ -3,27 +3,25 @@ using Watoocook.Domain.Models;
 
 namespace Watoocook.Api.Dtos
 {
-    public class RecipeDto : BaseDto
+    public class RecipeDto
     {
-        public RecipeDto(string name, Dictionary<Ingredient, Quantity> ingredients, IEnumerable<Tag> tags)
+        public string Id { get; set; } = null!;
+        public RecipeDto(Recipe recipe)
         {
-            Name = name;
-            Ingredients = ingredients;
-            Tags = tags;
-        }
-
-        public string Name { get; }
-
-        public Dictionary<Ingredient, Quantity> Ingredients { get; }
-
-        public IEnumerable<Tag> Tags { get; }
-
-        public override void Validate()
-        {
-            if (string.IsNullOrEmpty(Name))
+            Id = recipe.Id;
+            Name = recipe.Name;
+            this.Ingredients = new Dictionary<string, string>();
+            foreach (var ingredient in recipe.Ingredients)
             {
-                throw new InvalidObjectException("Invalid recipe name");
+                Ingredients.Add(ingredient.Key.ToString(), ingredient.Value.ToString());
             }
+            Tags = recipe.Tags.Select(tag => tag.ToString());
         }
+
+        public string Name { get; set; }
+
+        public Dictionary<string, string> Ingredients { get; set; }
+
+        public IEnumerable<string> Tags { get; set; }
     }
 }

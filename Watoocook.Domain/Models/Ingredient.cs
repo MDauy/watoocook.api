@@ -4,15 +4,13 @@ namespace Watoocook.Domain.Models
 {
     public class Ingredient : ValueOf<string, Ingredient>
     {
-        public Ingredient()
+        public Ingredient ()
         {
         }
 
-        public Ingredient(string name)
+        public Ingredient(string val)
         {
-            Name = name;
+            this.Value = val;
         }
-
-        public string Name { get; } = null!;
     }
 }
