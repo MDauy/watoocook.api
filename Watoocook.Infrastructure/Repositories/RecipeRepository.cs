@@ -1,4 +1,5 @@
 ﻿using MongoDBWrapper.Repositories;
+using System.Linq;
 using Watoocook.Domain.Models;
 using Watoocook.Domain.Repositories;
 using Watoocook.Infrastructure.Documents;
@@ -11,10 +12,13 @@ namespace Watoocook.Infrastructure.Repositories
         public async Task<IEnumerable<Recipe>> GetRecipesByTagsAsync(IEnumerable<string> tags)
         {
             var result = new List<Recipe>();
-            var recipes = await Get(recipe => recipe.Tags.Select(x => x.ToString()).Intersect(tags).Any());
-            foreach (var recipe in recipes)
+            foreach(var tag in tags)
             {
-                result.Add(new Recipe(recipe.Name, recipe.Ingredients, recipe.Tags, recipe.Oid.ToString()));
+                var recipes = await Get(recipe => recipe.Tags.Contains(tag));
+                if (recipes != null && recipes.Any())
+                {
+                    result.AddRange(recipes.Select(recipe => new Recipe(recipe.Name, recipe.Ingredients, recipe.Tags, recipe.Oid.ToString())));
+                }
             }
             return result;
         }
@@ -48,6 +52,16 @@ namespace Watoocook.Infrastructure.Repositories
                 recipeDocuments.Add(new RecipeDocument(recipe));
             });
             await Collection.InsertManyAsync(recipeDocuments);
+        }
+
+        private bool HaveIntersection(List<string> list1, List<string> list2)
+        {
+            foreach (var item in list2)
+            {
+                if (list1.Contains(item))
+                    return true;
+            }
+            return false;
         }
     }
 }
