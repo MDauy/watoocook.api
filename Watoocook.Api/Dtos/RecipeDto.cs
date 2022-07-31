@@ -1,5 +1,4 @@
-﻿using Watoocook.Api.Exceptions;
-using Watoocook.Domain.Models;
+﻿using Watoocook.Domain.Models;
 
 namespace Watoocook.Api.Dtos
 {
