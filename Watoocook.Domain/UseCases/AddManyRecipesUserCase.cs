@@ -1,18 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Watoocook.Domain.Models;
+﻿using Watoocook.Domain.Models;
 using Watoocook.Domain.Repositories;
 
 namespace Watoocook.Domain.UseCases
 {
-    public class InsertBunchOfRecipesUseCase
+    public class AddManyRecipesUserCase
     {
         private IRecipeRepository _recipeRepository;
 
-        public InsertBunchOfRecipesUseCase(IRecipeRepository recipeRepositorhy)
+        public AddManyRecipesUserCase(IRecipeRepository recipeRepositorhy)
         {
             _recipeRepository = recipeRepositorhy;
         }

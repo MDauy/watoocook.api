@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Watoocook.Api.Dtos;
-using Watoocook.Api.Exceptions;
 using Watoocook.Domain.Models;
 using Watoocook.Domain.UseCases;
 
@@ -11,15 +10,15 @@ namespace Watoocook.Api.Controllers
     public class RecipeController : Controller
     {
         private GetRecipesByTagsUseCase _getRecipesByTagsUseCase;
-        private InsertRecipeUseCase _insertRecipeUseCase;
+        private AddRecipeUseCase _insertRecipeUseCase;
         private DeleteRecipeUseCase _deleteRecipeUseCase;
         private GetRecipeByIdUseCase _getRecipeByIdUserCase;
-        private InsertBunchOfRecipesUseCase _insertBunchOfRecipes;
+        private AddManyRecipesUserCase _insertBunchOfRecipes;
         public RecipeController(GetRecipesByTagsUseCase getRecipesByTags,
-            InsertRecipeUseCase insertRecipeUserCase,
+            AddRecipeUseCase insertRecipeUserCase,
             DeleteRecipeUseCase deleteRecipeUseCase,
             GetRecipeByIdUseCase getRecipeByIdUseCase,
-            InsertBunchOfRecipesUseCase insertBunchOfRecipes)
+            AddManyRecipesUserCase insertBunchOfRecipes)
         {
             _getRecipesByTagsUseCase = getRecipesByTags;
             _insertRecipeUseCase = insertRecipeUserCase;
@@ -29,7 +28,7 @@ namespace Watoocook.Api.Controllers
         }
         // GET: api/<RecipeController>
         [HttpGet("getbytags")]
-        public async Task<IActionResult> GetByTags([FromBody] IEnumerable<string> tags)
+        public async Task<IActionResult> GetByTags([FromQuery] string[] tags)
         {
             try
             {

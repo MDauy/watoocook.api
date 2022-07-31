@@ -3,10 +3,10 @@ using Watoocook.Domain.Repositories;
 
 namespace Watoocook.Domain.UseCases
 {
-    public class InsertRecipeUseCase
+    public class AddRecipeUseCase
     {
         private IRecipeRepository _recipeRepository;
-        public InsertRecipeUseCase(IRecipeRepository recipeRepository)
+        public AddRecipeUseCase(IRecipeRepository recipeRepository)
         {
             _recipeRepository = recipeRepository;
         }
