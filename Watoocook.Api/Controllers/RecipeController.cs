@@ -9,11 +9,11 @@ namespace Watoocook.Api.Controllers
     [Route("[controller]")]
     public class RecipeController : Controller
     {
-        private GetRecipesByTagsUseCase _getRecipesByTagsUseCase;
-        private AddRecipeUseCase _insertRecipeUseCase;
-        private DeleteRecipeUseCase _deleteRecipeUseCase;
-        private GetRecipeByIdUseCase _getRecipeByIdUserCase;
-        private AddManyRecipesUserCase _insertBunchOfRecipes;
+        private readonly GetRecipesByTagsUseCase _getRecipesByTagsUseCase;
+        private readonly AddRecipeUseCase _insertRecipeUseCase;
+        private readonly DeleteRecipeUseCase _deleteRecipeUseCase;
+        private readonly GetRecipeByIdUseCase _getRecipeByIdUserCase;
+        private readonly AddManyRecipesUserCase _insertBunchOfRecipes;
         public RecipeController(GetRecipesByTagsUseCase getRecipesByTags,
             AddRecipeUseCase insertRecipeUserCase,
             DeleteRecipeUseCase deleteRecipeUseCase,
@@ -26,9 +26,16 @@ namespace Watoocook.Api.Controllers
             _getRecipeByIdUserCase = getRecipeByIdUseCase;
             _insertBunchOfRecipes = insertBunchOfRecipes;
         }
+
+        [HttpGet("hello-world")]
+        public ActionResult<string> HelloWorld()
+        {
+            return Ok("Hello world");
+        }
+        
         // GET: api/<RecipeController>
-        [HttpGet("getbytags")]
-        public async Task<IActionResult> GetByTags([FromQuery] string[] tags)
+        [HttpGet("get-by-tags")]
+        public async Task<IActionResult> GetByTags([FromQuery] List<string> tags)
         {
             try
             {
@@ -101,8 +108,8 @@ namespace Watoocook.Api.Controllers
 
         }
 
-        [HttpPost("insertmany")]
-        public async Task<IActionResult> InsertManyRecipes(List<RecipeDto> recipes)
+        [HttpPost("insert-many")]
+        public async Task<IActionResult> InsertManyRecipes(List<AddRecipeDto> recipes)
         {
             try
             {

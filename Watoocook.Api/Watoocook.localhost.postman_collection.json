@@ -1,0 +1,116 @@
+{
+	"info": {
+		"_postman_id": "d21ac485-cba0-4b3c-ab99-8a5beb385ab8",
+		"name": "Watoocook.localhost",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "4455350"
+	},
+	"item": [
+		{
+			"name": "Recipe/1 Copy",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/recipe/62e41c4bfe17cb8eb3eae375",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"recipe",
+						"62e41c4bfe17cb8eb3eae375"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetByTags",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/Recipe/getbytags?tags[]=dessert",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"Recipe",
+						"getbytags"
+					],
+					"query": [
+						{
+							"key": "tags[]",
+							"value": "dessert"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Hello world",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/recipe/hello-world",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"recipe",
+						"hello-world"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add recipe",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		},
+		{
+			"name": "InsertMany",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "[\r\n  {\r\n    \"name\": \"Boeuf bourguignon\",\r\n    \"ingredients\": {\r\n      \"Boeuf\": \"300gr\",\r\n      \"Oignons\": \"2\",\r\n      \"vin rouge\": \"20cl\"\r\n    },\r\n    \"tags\": [\r\n      \"viande\",\r\n      \"familial\"\r\n    ]\r\n  },\r\n  {\r\n    \"name\": \"Pâtes carbonara\",\r\n    \"ingredients\": {\r\n      \"Pâtes\": \"200gr\",\r\n      \"Oignons\": \"2\",\r\n      \"Lardons\": \"150gr\",\r\n      \"Parmesan\": \"50gr\"\r\n\r\n    },\r\n    \"tags\": [\r\n      \"viande\",\r\n      \"familial\"\r\n    ]\r\n  }\r\n]",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/Recipe/insert-many",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"Recipe",
+						"insert-many"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
